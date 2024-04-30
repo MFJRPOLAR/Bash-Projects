@@ -34,7 +34,7 @@ echo Enter filename
 read file
 
 # If the file exists 
-if [-e $file ]
+if [ -e $file ]
 then
     # Display the file's name 
     echo $file exists in the directory 

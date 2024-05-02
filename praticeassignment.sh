@@ -6,36 +6,34 @@
 get_total_cost () {
     # You must update this return statement so that
     # it returns the computed total cost.
-    let total=0
-    total=$((total+$1))
-    return $total
+    total_cost=0
+    counter=$1
+    
+    while [ $counter -ge 0 ]
+    do 
+        ((total_cost += ${cost[$counter]}))
+
+        (( counter -- ))
+    done 
+    return $total_cost
 }
 
-item=("Patridge in a Pear Tree" "Turtle Dave" "French Hen" "Calling Bird" "Gold Ring" "Geese a Laying" "Swans a Swimming" "Maides a Milking" "Ladies Dancing" "Lords A Leaping" "Piper Piping" "Drummer Drumming")
+item=('Partridge in a Pear Tree' 'Turtle Dave' 'French Hen' 'Calling Bird' 'Gold Ring' 'Geese a Laying' 'Swans a Swimming' 'Maides a Milking' 'Ladies Dancing' 'Lords a Leaping' 'Piper Piping' 'Drummer Drumming')
 cost=(15 27 15 14 9 25 5 7 18 14 27 26)
+read -p 'Input a number between (1-12): ' number
 
-read -p 'Please input a number (1 - 12): ' number 
-let starting_number=$number
-
-if [ $number -ge 12 ] || [ $number -le 0 ]
+if [ $number -lt 1 ] || [ $number -gt 12 ]
 then 
-    echo 'Number must be between 1 and 12' 
+    echo 'Number must be between 1 and 12.'
 else 
-    while [ $start_number -le 0 ] 
-    do
-        number=$((number-1))
-        echo Number$'\t'$start_number
-        echo Item$'\t'${item[number]}
-        echo Cost$'\t''$'${cost[number]}
-        total=$((total+$get_total_cost${cost[number-1]}))
-        echo Total$'\t''$'$total
-        read -p 'Please input a number (1 - 12): ' number
-        if [ $number -ge 12 ] || [ $number -le 0 ]
-        then 
-            echo 'Number must be between 1 and 123'
-            break
-        fi
-        ((start_number--))
-    done
-    echo 'Number must be between 1 and 12'
-fi 
+    echo Number $number
+    echo 'Item '${item[number-1]}
+    echo 'Cost $'${cost[number-1]}
+    ((number--))
+    get_total_cost $number
+    total=$?
+    echo 'Total $'$total
+fi
+
+
+

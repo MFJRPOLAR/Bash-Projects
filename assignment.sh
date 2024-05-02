@@ -6,9 +6,18 @@
 get_total_cost () {
     # You must update this return statement so that
     # it returns the computed total cost.
-    let total=0
-    total=$((total+$1))
-    return $total
+    totalCost=0
+    counter=$1
+    # Until counter is less than zero.
+    until [ $counter -lt 0 ]
+    do
+    # Add cost of current item into total cost.
+    (( totalCost += ${cost[$counter]} ))
+# Decrement counter variable.
+    (( counter-- ))
+    done
+# Return total cost.
+    return $totalCost
 }
 
 item=("Patridge in a Pear Tree" "Turtle Dave" "French Hen" "Calling Bird" "Gold Ring" "Geese a Laying" "Swans a Swimming" "Maides a Milking" "Ladies Dancing" "Lords A Leaping" "Piper Piping" "Drummer Drumming")
